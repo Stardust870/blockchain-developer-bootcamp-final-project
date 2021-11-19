@@ -1,4 +1,6 @@
-# Lejart
+# LejArt
+Arts on the blockchain
+
 ## blockchain-developer-bootcamp-final-project
 
 Final Project Idea
