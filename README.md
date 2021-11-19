@@ -1,5 +1,5 @@
-# blockchain-developer-bootcamp-final-project
-iArtLedger : ArtNique : Lukesan : Kekal : Nirantara : Lejart
+# Lejart
+## blockchain-developer-bootcamp-final-project
 
 Final Project Idea
 
