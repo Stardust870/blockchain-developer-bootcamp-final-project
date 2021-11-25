@@ -1,0 +1,53 @@
+
+
+## *FUNCTIONS*
+
+constructor(string uri_) : create contract instance
+
+uri(unint id) -> string : returns same URI for all token types
+
+balanceOf(address account, uint256 tokenid) → uint256 : return token balances for account
+
+balanceOfBatch(address[] accounts, uint256[] ids) → uint256[] : batch version of the balanceOf() API above; length of accounts and ids arrays should be equal
+
+setApprovalForAll(address operator, bool approved) : approve/revoke to operator for all user tokens 
+
+isApprovedForAll(address account, address operator) → bool : return T/F on whether operator is approved for account
+
+safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes data) : transfer amount tokens of token 'id' to user 'to' from address 'from'
+
+safeBatchTransferFrom(address from, address to, uint256[] ids, uint256[] amounts, bytes data) : batched version of the previous API 
+
+supportsInterface(bytes4 interfaceId) → bool  # IERC165; respond if the contract implements the interfaceid
+
+totalSupply(uint256 tokenid) → uint256 : total supply of the tokenid
+
+exists(uint256 id) → bool : does token type 'id' exist
+
+_mint(address account, uint256 id, uint256 amount, bytes data) internal : internal mint function
+
+_mintBatch(address to, uint256[] ids, uint256[] amounts, bytes data) internal : batch mint for ERC1155
+
+pause() : pauses all token transfers
+
+unpause(): unpauses all token transfers
+
+paused() → bool : is paused?
+
+
+------------
+
+
+## *EVENTS*
+
+TransferSingle(operator, from, to, id, value)
+
+TransferBatch(operator, from, to, ids, values)
+
+ApprovalForAll(account, operator, approved)
+
+URI(value, id)
+
+Paused(account)
+
+Unpaused(account)
