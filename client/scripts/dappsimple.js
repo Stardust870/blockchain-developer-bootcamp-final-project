@@ -1,5 +1,5 @@
 
-const ssAddress = '0x18f96cc8D02df3f2dbD70fa9a3221A58848e9019'
+const ssAddress = '0x5C51C15f255cC7e05fc901E489E7E2CEc8195b72' 
 const ssABI = [
     {
         "inputs": [],
