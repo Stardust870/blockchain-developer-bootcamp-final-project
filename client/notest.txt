@@ -1,0 +1,75 @@
+
+display all tutors: one call to get a list (allTutors)
+- name, subject, description, rate, image
+- button: available / unavailable
+    button click to sign up for session (bookTutor)
+
+display signups : one call with address to get list of signups
+    getSignups()
+- name, subject, description, rate, image
+- button: session completed, session cancelled
+    click to mark completed
+    click to cancel session (no refunds for now)
+
+register for tutoring
+- enter info
+- submit: call to registerTutor()
+
+if signed up already:
+- upcoming sessions : getBookings( open )
+- completed sessions : getBookings( completed )
+- enable/disable signups : setAvailability()
+
+
+1) Start ganache (this is the local blockchain emulator) on a zsh terminal (inside visual studio code):
+ganache-cli -p 8545   
+
+2) Compile and deploy your smart contract (open a separate zsh terminal in vcode):
+truffle migrate --network development --reset
+
+3) Note the smart contract address from the returned output and copy it to the front-end 
+javascript code (initialize ssAddr)
+
+3) Interact with your smart contract by getting a handle to it on development network:
+and initialize your contract with some dummy data so the web UI has something to start with:
+truffle console --network development 
+Now in the truffle console:
+truffle(development)> 
+let x = await Tutors.deployed()
+let accounts = await web3.eth.getAccounts()
+await x.registerTutor("Bob", accounts[2], 20000000000000000, "Buildings", "Modern buildings", "url2")
+await x.registerTutor("Cat", accounts[3], 30000000000000000, "Chemistry", "Modern organics", "url3")
+await x.registerTutor("Ann", accounts[1], 10000000000000000, "Art", "Modern art", "url1")
+
+4) Start the web server from the web client area:
+npm i -g serve
+serve
+If the above commands return error about permissions to write, use studio
+
+
+
+Available Accounts
+==================
+(0) 0x88986a1A9b8b4f5a1B0BC98c0ceBA1801cd8Ab4c (100 ETH)
+(1) 0xe8f1F06532f192f8E87a8d2Eae18073552c6dce1 (100 ETH)
+(2) 0xbd70b26C5b84b36Dc91fa734c3a41AB4a48a1613 (100 ETH)
+(3) 0x19a69827F3598132EF0791A037966d042d53238B (100 ETH)
+(4) 0x9213b4DD96ED4a4008780EeEAA081F58902154CD (100 ETH)
+(5) 0xA6D167224F9D426c39787d3076e42AA70BDc8d90 (100 ETH)
+(6) 0x79dF3Effc578d11513254387339787695F57C3a5 (100 ETH)
+(7) 0x13e6e3bfaA5C9E80B088b635f4f550C054b68133 (100 ETH)
+(8) 0xfc477d80088452a4168296DF16a7C69c5F321EFD (100 ETH)
+(9) 0xC5409b0112fB6c80C02574B0171300fb5d475Cc7 (100 ETH)
+
+Private Keys
+==================
+(0) 0xbf287018b551df28c9febd6e7c2474a55696574893b5c612c2682e1600ac00b9
+(1) 0x2cd7ababcbde3cbee74cfc8c2ff76b4c6328d2de7111a1d14f46b7613b9deae3
+(2) 0x6320ff5d9f4b7efa3db0a07a7e5bbc15b1343242ed440e9801aecfa62e27be38
+(3) 0xafd8b06c5c5e3313952bc7c38a55eaed334687b8d07da520468393ba73d5e9c1
+(4) 0xe20087d163bb9c12af981afe4221cfd08cb242bd740cca058f153a9afb511b32
+(5) 0x6d0e553078e619b00a7b0b5119547ff8427a18e55318d3852ad71478d06631e2
+(6) 0x3934c59540f73ad3b2b46f0e04a1919c4c3d2b71658bb11c1cf18d17e2034761
+(7) 0x03e987fa2558775bc5a4be62afcec167e417c6836823fea00b8e89105a45f763
+(8) 0x639ad6fcea3cc737e171d4954ccbc20425bfe7f0b730927dc68fb46f175f3d50
+(9) 0x331520299dd3c849e018f4a8be12fe61bc71be273d47f9668bf3cb0eab8e4781

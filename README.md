@@ -1,26 +1,98 @@
-# LejArt
-Arts on the blockchain
+# Final project - Automated rental agreements
 
-### blockchain-developer-bootcamp-final-project
+## Deployed version url:
 
-## Final Project Idea
+https://final-project-jsur.vercel.app
 
-For my final project I want to create, deploy and sell an art collection as NFTs. For this project, my focus is not on the actual art itself. These are the main components of my project:
-1. Create a solidity smart contract to mint my art pieces. This contract will be based on the ERC1155 standard. 
-2. My art collection and the metadata will be deployed to IPFS
-3. I will create a simple website to display my art collection and their various attributes.
-4. Patrons who acquire my art can also visit the website to view their acquisitions or the prevenance of their acquired pieces
+## How to run this project locally:
 
-Initially I will try to build the smart contract from scratch to implement ERC 721 to learn the details and later switch to OpenZeppelin to make it robust and also learn about benefits of using OpenZeppelin. 
+### Prerequisites
 
-If time permits I will display my collection for view on OpenSea
+- Node.js >= v14
+- Truffle and Ganache
+- Yarn
+- `git fetch --all --tags`
+- `git checkout tags/v1.0 -b cert`
 
-My project will be based on either ethereum or matic testnet.
+### Contracts
 
-## Background
+- Run `yarn install` in project root to install Truffle build and smart contract dependencies
+- Run local testnet in port `7545` with an Ethereum client, e.g. Ganache
+- `truffle migrate --network development`
+- `truffle console --network development`
+- Run tests in Truffle console: `test`
 
-The ERC-1155 multi-token standard is a generalization of the ERC standards 20 and 721. It allows the creation of fungible (ERC-20) and non-fungible tokens (ERC-721) in a single smart contract. Each token ID can represent its own metadata and supply parameters. Some advantages of this standard are
-* we can create non-fungible tokens which can be used to represent unique items such as art work, land titles, personal identities etc
-* we can create distinct fungible token collections. This feature can be used to represent preset number of copies of uique items. For example, artist releasing limited edition prints of a specific piece, assets in games (4 dragons, 200 swords, 2000 jewels etc).
+### Frontend
 
-Further details of the ERC 1155 multi-token standard can be found [here](https://eips.ethereum.org/EIPS/eip-1155).
+- `cd client`
+- `yarn install`
+- `yarn start`
+- Open `http://localhost:3000`
+
+### How to populate locally deployed contract with listings
+
+- `truffle migrate --network development`
+- `truffle console --network development`
+- `let rr = await Rentals.deployed()`
+- Add two listings:
+- `rr.addProperty(web3.utils.toWei("0.00156"), "Hämeentie 77", "Duplex with a nice view", "https://google.com","https://www.hermannikuvia.fi/wp-content/uploads/Hameentie-77-sisapiha.jpg")`
+- `rr.addProperty(web3.utils.toWei("0.002"), "Mannerheimintie 30 A", "Duplex with a really bad view", "https://google.com","https://www.finna.fi/Cover/Show?id=hkm.HKMS000005%3Akm002zsb&index=0&size=large&source=Solr")`
+- Send ETH to local wallet: `web3.eth.sendTransaction({ from: "<your local address>", to: "<your local network wallet>", value: web3.utils.toWei("10") })`
+- `cd client && yarn start`
+- Open local ui from `http://localhost:3000`
+- Make sure your Metamask localhost network is in port `7545`.
+- If you get `TXRejectedError` when sending a transaction, reset your Metamask account from Advanced settings.
+
+## Screencast link
+
+https://youtu.be/enwECpgoQUg
+
+## Public Ethereum wallet for certification:
+
+`0x109B58ED673Bb241d170b87e4F88c5f426781fC9`
+
+## Project description
+
+User and apartment owner enter an agreement for renting a property, i.e. exchanging usage rights to an apartment for as long as payments are made to a specific Ethereum account before the agreed deadline.
+
+User receives a keycode / access token to the apartment after first payment. If a user's payments are late, they will receive a reminder after one week. After e.g. 30 days (variable depending on local jurisdiction) of no payments, usage rights will be automatically transferred back to owner and apartment access rights will be revoked from user. User agrees to this procedure when entering contract with owner.
+
+- Checking for received payments and transferring ownership back to owner on non-payment cases could be scheduled with e.g. Gelato Network (https://docs.gelato.network/tutorial).
+- Opening door locks could be done with an app with smart locks, e.g. https://api.getkisi.com/docs. Smart lock APIs won't be explored in this project.
+
+## Simple workflow
+
+1. Enter service web site
+2. Login with Metamask
+3. Browse apartments
+4. Select apartment
+5. Agree on contract, pay first installment with Metamask (smart contract call)
+6. Tenantship is transferred to user account (smart contract call)
+7. Receive key phrase / token / OTP / etc. to access apartment with smart lock app (this part will be mocked in project)
+
+## Scheduled workflow for late payments (Not implemented)
+
+1. Run scheduled contract weekly (Gelato? https://docs.gelato.network/tutorial)
+2. Check for made payments for each rental agreement (from renter wallet to owner wallet)
+3. If last payment is late 7 days, send reminder
+4. If last payment is late >= 30 days, remove tenant. Revoke user token access rights to apartment smart lock.
+
+## Directory structure
+
+- `client`: Project's React frontend.
+- `contracts`: Smart contracts that are deployed in the Ropsten testnet.
+- `migrations`: Migration files for deploying contracts in `contracts` directory.
+- `test`: Tests for smart contracts.
+
+## Environment variables (not needed for running project locally)
+
+```
+ROPSTEN_INFURA_PROJECT_ID=
+ROPSTEN_MNEMONIC=
+```
+
+## TODO features
+
+- Tenant payments tracking
+- Tenant removal
+- Fund withdrawal

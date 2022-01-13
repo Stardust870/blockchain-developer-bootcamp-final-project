@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dapp</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <!-- <script src="require.js"></script> -->
+    <!-- <link href="https://unpkg.com/tabulator-tables@5.0.10/dist/css/tabulator.min.css" rel="stylesheet"> -->
+    <link href="https://unpkg.com/tabulator-tables@5.0.10/dist/css/tabulator.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://unpkg.com/tabulator-tables@5.0.10/dist/js/tabulator.min.js"></script>
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/dirg.css">
+    <link rel="stylesheet" href="styles/gallery.css">
+
+
+</head>
+
+<body>
+    <h1>Tutors Dapp</h1>
+    <h3>Online peer tutoring service. All payments in ETH</h3>
+
+    <!-- List of all tutors -->
+
+
+    <!-- Provide an input to change the contract text value -->
+    <br />
+    <!-- Read input from contract -->
+
+
+
+    <div class="DIRG" style="--grid-number: 1; --grid-gutter: 1rem;">
+        <div>
+            <div id="mm-detected"></div>
+            <br />
+            <button id="mm-connect">Connect to metamask</button>
+            <br /><br />
+            <div id="mm-current-account"
+                style="padding: 4px; background-color: lightyellow; width: 550px; color: black">MetaMask Account: </div>
+            <br />
+        </div>
+        <div>
+
+            <button id="ss-list-button">Click to see registered tutors (click image for tutor details):</button>
+            <div id="ss-tutor-display"></div>
+            <br /><br />
+
+            <div class="container">
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <img id="expandedImg" style="width:400px">
+                <table>
+                    <tr>
+                        <td>
+                            <div id="imgtext"></div>
+                        </td>
+                        <td>
+                            <div id="imginfo"></div>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div>
+
+            <h2>List of tutors:</h2>
+            <div id="ss-tutor-table"></div>
+        </div>
+        <div>
+            <h2>Register a tutor:</h2>
+
+            <div id="registerForm">
+                <table width="700">
+
+                    <tr>
+                        <td>Name:</td>
+                        <td><input type="text" id="r-name"></td>
+                    </tr>
+                    <tr>
+                        <td>Subject: </td>
+                        <td><input type="text" id="r-subject"></td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td><input type="text" id="r-description"></td>
+                    </tr>
+                    <!-- <tr>
+                        <td>Profile URL: </td>
+                        <td><input type="url" id="r-imgURL" width="500"></td>
+                    </tr> -->
+                    <tr>
+                        <td>Hourly rate (in ETH): </td>
+                        <td><input type="number" id="r-rate"></td>
+                    </tr>
+                    <tr>
+                        <td>ETH address: </td>
+                        <td><input type="text" id="r-address"></td>
+                    </tr>
+                </table>
+                <button id="ss-register-tutor">Submit Registration</button>
+            </div>
+        </div>
+        <div>
+            <br />
+            <div id="ss-is-tutor">
+                Your availability:
+                <label class="switch">
+                    <input type="checkbox" id="tutor-avail-cb">
+                </label>
+                <button id="ss-tutor-avail">Update</button>
+            </div>
+        </div>
+
+
+        <div>
+            <h2>Signup for a session:</h2><br />
+
+            <!-- <button id="ss-list-button">Click to see registered tutors:</button>
+            <div id="ss-tutor-display"></div>
+            <br /><br />
+
+            <div class="container">
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <img id="expandedImg" style="width:400px">
+                <table>
+                    <tr>
+                        <td>
+                            <div id="imgtext"></div>
+                        </td>
+                        <td>
+                            <div id="imginfo"></div>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </div> -->
+            <br />
+            <button id="ss-book-button">Book tutor:</button> <select id="ss-tid" name="ss-tidy"></select>
+
+
+
+            <div>
+                <h2>My tutoring sign ups:</h2><br />
+                <button id="ss-booked-tutors">Fetch upcoming</button>
+                <br /><br />
+                <div id="ss-mytutor-table"></div>
+
+                <br /><br />
+                <button id="ss-signoff-button">Mark complete:</button> <select id="ss-close-tutor"></select>
+
+            </div>
+        </div>
+
+        <script src="scripts/dappsimple.js"></script>
+</body>
+
+</html>
