@@ -63,6 +63,18 @@ The testnet eth accounts have 100 eth by default so that is plenty for testing p
 ## Screencast link
 
 https://www.youtube.com/watch?v=_cQjHZnuzkk
+The above video does not have voiceover.
+I will try to upload a video with voice commentary. Till then these are the key aspects that are shown:
+- Main page of the tutors dapp 
+- The Dapp is already connected to metamask account on roptsten
+- Once connected, page displays all tutors who are currently registered with the dapp and the ones who are available have a green check mark
+- The video shows how to register as a tutor and page automatically updates itself once the block is mined. You can see the new tutor (David)
+- Scrolling below it shows a dropdown with available tutors for signing up for a future session
+- Once a tutor is selected and signed up, it next charges hourly rate and the tutor is marked as unavailable. 
+- The selected tutor now shows up in the list of upcoming sessions at the bottom
+- Once the session is completed, user can click "Mark complete" button to indicate session is done. The tutor is marked as available now.
+- Towards the end of the video, it shows that David (testing 9) whose account started with balance of 0 ETH when he registered now has 0.001 after the session was booked.
+
 
 ## Public Ethereum wallet for certification:
 
