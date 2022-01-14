@@ -57,7 +57,7 @@ The testnet eth accounts have 100 eth by default so that is plenty for testing p
 
 ## Screencast link
 
-https://youtu.be/...  [TBA]
+https://www.youtube.com/watch?v=_cQjHZnuzkk
 
 ## Public Ethereum wallet for certification:
 
