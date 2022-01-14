@@ -4,50 +4,48 @@
 
 constructor(string uri_) : create contract instance
 
-uri(unint id) -> string : returns same URI for all token types
+getTutors() -> Tutor[] memory : returns array of tutor records
 
-balanceOf(address account, uint256 tokenid) → uint256 : return token balances for account
+registerTutor(
+        string memory _name,
+        address _account,
+        uint256 _hourlyRate,
+        string memory _subject,
+        string memory _description,
+        string memory _imgUrl
+    )  : registers a tutor with given name and wallet address; checks address is valid (not 0) and is not already registered
+    Each tutor is assigned a unique uint id (referred to as tutorid) below
 
-balanceOfBatch(address[] accounts, uint256[] ids) → uint256[] : batch version of the balanceOf() API above; length of accounts and ids arrays should be equal
+bookTutor(uint256 tutorId) public payable : signup user with the tutorid; checks tutor is vailable and payment matches hourly rate
+    
+_getAvailCount() internal view -> uint256 : count of tutors that are currently available
 
-setApprovalForAll(address operator, bool approved) : approve/revoke to operator for all user tokens 
+_getSignupCount(address student) internal view returns -> uint256 : count of the number of sessions a student is signed up for
 
-isApprovedForAll(address account, address operator) → bool : return T/F on whether operator is approved for account
+availableTutorIds() external view -> uint256[] memory : returns tutorids of all available tutors
 
-safeTransferFrom(address from, address to, uint256 id, uint256 amount, bytes data) : transfer amount tokens of token 'id' to user 'to' from address 'from'
+setAvailability(bool isAvail) public : allows tutors to change their availability
 
-safeBatchTransferFrom(address from, address to, uint256[] ids, uint256[] amounts, bytes data) : batched version of the previous API 
+getSignups() public view returns (uint256[] memory) : returns list of tutorids with whom the student (msg.sender) is signed up
 
-supportsInterface(bytes4 interfaceId) → bool  # IERC165; respond if the contract implements the interfaceid
-
-totalSupply(uint256 tokenid) → uint256 : total supply of the tokenid
-
-exists(uint256 id) → bool : does token type 'id' exist
-
-_mint(address account, uint256 id, uint256 amount, bytes data) internal : internal mint function
-
-_mintBatch(address to, uint256[] ids, uint256[] amounts, bytes data) internal : batch mint for ERC1155
-
-pause() : pauses all token transfers
-
-unpause(): unpauses all token transfers
-
-paused() → bool : is paused?
+deleteBooking(uint256 tutorId) external : allows student (msg.sender) to close out the session freeing up the tutor
 
 
-------------
+## *MODIFIERS* 
 
+isTutorAvailable(uint256 id) : checks that the tutor "id" is registered and is available
 
+isExactPayment(uint256 id) : checks tutor is registered and that their hourly rate matches msg.value
+
+ 
+ 
 ## *EVENTS*
 
-TransferSingle(operator, from, to, id, value)
+ event LogTutorAdded(uint256 indexed tutor, string indexed name, uint256 hourlyrate, address account ): emitted upon tutor registration
 
-TransferBatch(operator, from, to, ids, values)
+event LogTutorBooked(uint256 indexed tutor, address indexed student) : emitted when a tutoring session is booked
 
-ApprovalForAll(account, operator, approved)
+event LogDeleteBooking(uint256 indexed tutorId, address indexed student) : emitted when a session is closed out
 
-URI(value, id)
+event LogAvailabilityChange(address indexed tutor, bool isAvail) : emitted each time a tutor availability status is changed
 
-Paused(account)
-
-Unpaused(account)
