@@ -2,8 +2,8 @@
 
 ## Access Control Design Patterns
 
-- `Ownable` design pattern used in three functions: `removeTenant()`, `withdraw()` and `addProperty()`. These functions do not need to be used by anyone else apart from the contract creator, i.e. the party that is responsible for managing the rental operations.
+- `Ownable` design pattern included but currently not used. Idea is for contract deployer to have ability to users in case of reported abuse
 
 ## Inheritance and Interfaces
 
-- `Rentals` contract inherits the OpenZeppelin `Ownable` contract to enable ownership for one managing user/party.
+- `Tutors` contract inherits the OpenZeppelin `Ownable` contract to enable administrative functions (TBA)
