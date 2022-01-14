@@ -6,6 +6,8 @@ https://stardust870.github.io/blockchain-developer-bootcamp-final-project/client
 
 Website was tested on chrome with metamask extension installed. 
 It has not been checked on other browsers.
+Credits to https://github.com/jsur/blockchain-developer-bootcamp-final-project.git from which I 
+learnt a lot and followed simiar structure for my project.
 
 ## How to run this project locally:
 
