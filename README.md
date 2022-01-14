@@ -61,7 +61,7 @@ https://youtu.be/...  [TBA]
 
 ## Public Ethereum wallet for certification:
 
-`0x109B58ED673Bb241d170b87e4F88c5f426781fC9`
+`TBA`
 
 ## Project description
 
