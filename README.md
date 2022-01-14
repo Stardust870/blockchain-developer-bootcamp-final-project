@@ -4,6 +4,9 @@
 
 https://stardust870.github.io/blockchain-developer-bootcamp-final-project/client/index.html
 
+Website was tested on chrome with metamask extension installed. 
+It has not been checked on other browsers.
+
 ## How to run this project locally:
 
 ### Prerequisites
@@ -61,7 +64,7 @@ https://www.youtube.com/watch?v=_cQjHZnuzkk
 
 ## Public Ethereum wallet for certification:
 
-`TBA`
+0xe76669291E49dE8f5819A324d1BB8E1D43f07c82
 
 ## Project description
 
