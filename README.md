@@ -1,8 +1,8 @@
-# Final project - Automated rental agreements
+# Final project - Peer Tutoring with Crypto Payments
 
 ## Deployed version url:
 
-https://final-project-jsur.vercel.app
+https://stardust870.github.io/blockchain-developer-bootcamp-final-project/client/index.html
 
 ## How to run this project locally:
 
@@ -17,35 +17,47 @@ https://final-project-jsur.vercel.app
 ### Contracts
 
 - Run `yarn install` in project root to install Truffle build and smart contract dependencies
-- Run local testnet in port `7545` with an Ethereum client, e.g. Ganache
-- `truffle migrate --network development`
+
+- Run local testnet in port `8545` with an Ethereum client, e.g. **ganache-cli -p 8545**  
+
+I recommend starting ganache-cli as follows:
+- ganache-cli -p 8545 -m 'some random twelve words ...'
+Keeping the mnemonic constant gives you the same test eth accounts and save you trouble of importing new accounts into metamask for testing
+
+Compile and deploy the smart contract:
+- `truffle migrate --network development --reset`
+Open truffle console and run tests:
 - `truffle console --network development`
 - Run tests in Truffle console: `test`
 
 ### Frontend
-
-- `cd client`
-- `yarn install`
-- `yarn start`
-- Open `http://localhost:3000`
+Start the web server
+- npm i -g serve
+- serve
+- open client/index.html in browser 
+ 
+Frontend is html and pure javascript. So no special package installs needed.
 
 ### How to populate locally deployed contract with listings
 
 - `truffle migrate --network development`
 - `truffle console --network development`
-- `let rr = await Rentals.deployed()`
-- Add two listings:
-- `rr.addProperty(web3.utils.toWei("0.00156"), "Hämeentie 77", "Duplex with a nice view", "https://google.com","https://www.hermannikuvia.fi/wp-content/uploads/Hameentie-77-sisapiha.jpg")`
-- `rr.addProperty(web3.utils.toWei("0.002"), "Mannerheimintie 30 A", "Duplex with a really bad view", "https://google.com","https://www.finna.fi/Cover/Show?id=hkm.HKMS000005%3Akm002zsb&index=0&size=large&source=Solr")`
-- Send ETH to local wallet: `web3.eth.sendTransaction({ from: "<your local address>", to: "<your local network wallet>", value: web3.utils.toWei("10") })`
-- `cd client && yarn start`
-- Open local ui from `http://localhost:3000`
-- Make sure your Metamask localhost network is in port `7545`.
-- If you get `TXRejectedError` when sending a transaction, reset your Metamask account from Advanced settings.
+
+When you see the "truffle(development)>" prompt, you can enter the following to initialize the contract state
+
+- `let x = await Tutors.deployed()`
+- `let accounts = await web3.eth.getAccounts()`
+- `await x.registerTutor("Bob", accounts[2], web3.utils.toWei("0.002"), "Buildings", "Modern buildings", "url2")`
+
+Alternatively, you can open the client/index.html in your browser and after connecting your wallet, register a few tutors
+Make sure that the metamask localhost network in on port `8545` (should match what we gave as parameter when we ran ganache-cli.
+
+The testnet eth accounts have 100 eth by default so that is plenty for testing purpose.
+
 
 ## Screencast link
 
-https://youtu.be/enwECpgoQUg
+https://youtu.be/...  [TBA]
 
 ## Public Ethereum wallet for certification:
 
@@ -53,46 +65,65 @@ https://youtu.be/enwECpgoQUg
 
 ## Project description
 
-User and apartment owner enter an agreement for renting a property, i.e. exchanging usage rights to an apartment for as long as payments are made to a specific Ethereum account before the agreed deadline.
+My application is a simplified online service that connects students with tutors with all financial exchanges happening in crypto (ETH for now).
 
-User receives a keycode / access token to the apartment after first payment. If a user's payments are late, they will receive a reminder after one week. After e.g. 30 days (variable depending on local jurisdiction) of no payments, usage rights will be automatically transferred back to owner and apartment access rights will be revoked from user. User agrees to this procedure when entering contract with owner.
+Users who wish to tutor can
+- register themselves filling in a form indicating their basic info, hourly rate (in ETH) and wallet address 
+- tutors can make themselves unvailable or available at anytime (in case they do not wish to take time off)
 
-- Checking for received payments and transferring ownership back to owner on non-payment cases could be scheduled with e.g. Gelato Network (https://docs.gelato.network/tutorial).
-- Opening door locks could be done with an app with smart locks, e.g. https://api.getkisi.com/docs. Smart lock APIs won't be explored in this project.
+Users who wish to signup for a tutoring session can 
+- view the list of available tutors
+- select a tutor and book a session with them. At this point they will be charged for the session fully. 
+- users can also look at the upcoming sessions 
+- mark a session as completed at which point the tutor is freed up so other students can sign up with them
 
-## Simple workflow
+## Limitations/TODO items
+- Clearly this is a very simplified application since there is no way to specify date/time for the session (mainly because I have yet to find a nice way to manage date/times in solidity). 
+- Also, in a normal business, payment should be finalized upon completion of the session and also allow users to change their mind as to whether they want to keep or cancel or move their appointment.
+- The ability for tutors to make themselves available/unavailable is currently disable in the UI (although the smart contract itself has the implementation)
+- One nice addition might be to provide users who signup with the zoom passcode which is specific to a tutor (or even better to a specific session).
+
+All of these and perhaps other features can be added in future.
+
+
+## Simple workflow for users seeking tutors:
 
 1. Enter service web site
 2. Login with Metamask
-3. Browse apartments
-4. Select apartment
-5. Agree on contract, pay first installment with Metamask (smart contract call)
-6. Tenantship is transferred to user account (smart contract call)
-7. Receive key phrase / token / OTP / etc. to access apartment with smart lock app (this part will be mocked in project)
+3. Browse tutors 
+4. Select tutor who is available and meets the subject requirement
+5. Signup with the tutor. At this point the student is charge the hourly rate.
+6. [for future] Receive zoom passcode provided by the tutor
+ 
 
-## Scheduled workflow for late payments (Not implemented)
+## Workflow for users wishing to be tutors
 
-1. Run scheduled contract weekly (Gelato? https://docs.gelato.network/tutorial)
-2. Check for made payments for each rental agreement (from renter wallet to owner wallet)
-3. If last payment is late 7 days, send reminder
-4. If last payment is late >= 30 days, remove tenant. Revoke user token access rights to apartment smart lock.
+1. Enter service web site
+2. Login with Metamask
+3. Fill up the "register as tutor" form
+4. [for future] Make yourself available/unavailable in case for a period of days you do not wish to tutor
+5. [for future] Allow tutors to distribute secret codes to users who signed up for session (zoom passcode or some such)
 
 ## Directory structure
 
-- `client`: Project's React frontend.
-- `contracts`: Smart contracts that are deployed in the Ropsten testnet.
+- `client`: Project's html/javascript frontend.
+- `contracts`: Solidity smart contracts
 - `migrations`: Migration files for deploying contracts in `contracts` directory.
 - `test`: Tests for smart contracts.
 
 ## Environment variables (not needed for running project locally)
 
 ```
-ROPSTEN_INFURA_PROJECT_ID=
-ROPSTEN_MNEMONIC=
+MNEMONIC="..."
+ROPSTEN_URL=https://ropsten.infura.io/v3/...
+KOVAN_URL=https://kovan.infura.io/v3/...
+RINKEBY_URL=https://rinkeby.infura.io/v3/...
+MAINNET_URL=https://mainnet.infura.io/v3/...
+ROPSTEN_INFURA_PROJECT_ID="..."
+PRIKEY="..."
+GANACHE_MNEMONIC="..."
 ```
 
-## TODO features
+The GANACHE_MNEMONIC is the one you pass to `ganache-cli -p 8545 -m <>` as the argument to the -m option
 
-- Tenant payments tracking
-- Tenant removal
-- Fund withdrawal
+
