@@ -1,4 +1,6 @@
-# Final project - Peer Tutoring with Crypto Payments
+# Final project:
+
+# Peer Tutoring with Crypto Payments
 
 ## Deployed version url:
 
